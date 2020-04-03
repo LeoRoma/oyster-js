@@ -5,9 +5,8 @@ class OysterCard {
   }
 
   topUp(amount) {
-    if (amount < this.maxBalance) {
-      this.balance += amount;
-    } else {
+    this.balance += amount;
+    if (this.balance > this.maxBalance) {
       throw new Error("Amount of £90 exceeded");
     }
   }
