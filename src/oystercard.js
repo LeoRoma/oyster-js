@@ -1,7 +1,11 @@
 class OysterCard {
-  hello(string){
-    return string
+  constructor() {
+    this.balance = 0;
   }
-};
+
+  hello(string) {
+    return string;
+  }
+}
 
 module.exports = OysterCard;
