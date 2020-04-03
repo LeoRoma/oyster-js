@@ -1,0 +1,27 @@
+{
+  "name": "oyster-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "jest": "^25.2.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeoRoma/oyster-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeoRoma/oyster-js/issues"
+  },
+  "homepage": "https://github.com/LeoRoma/oyster-js#readme"
+}
