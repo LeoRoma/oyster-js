@@ -11,14 +11,28 @@ describe("OysterCard", () => {
     expect(oystercard.balance).toEqual(0);
   });
 
-  test("top up card", () => {
-    oystercard.topUp(10);
-    expect(oystercard.balance).toEqual(10);
+  describe('top up', () => {
+    test("top up card", () => {
+      oystercard.topUp(10);
+      expect(oystercard.balance).toEqual(10);
+    });
+
+    test("has a max balance of 90", () => {
+      expect(function () {
+        oystercard.topUp(100);
+      }).toThrow("Amount of £90 exceeded");
+    });
   });
 
-  test("has a max balance of 90", () => {
-    expect(function() {
-      oystercard.topUp(100);
-    }).toThrow("Amount of £90 exceeded");
-  });
+  describe('deduct', () => {
+    test('deduct some amount', () => {
+      oystercard.topUp(10);
+      oystercard.deduct();
+      expect(oystercard.balance).toEqual(7);
+    });
+  
+    test('if no balance cannot deduct', () => {
+      expect(function(){oystercard.deduct()}).toThrow("Not enough money on oyster card");
+    });
+  });  
 });
