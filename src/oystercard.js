@@ -1,8 +1,9 @@
 class OysterCard {
+
   constructor() {
     this.maxBalance = 90;
+    this.minBalance = 1
     this.balance = 0;
-    this.fare = 3;
     this.inJourney = null;
   }
 
@@ -13,19 +14,20 @@ class OysterCard {
     }
   }
 
-  deduct() {
-    if (this.balance < this.fare) {
-      throw new Error("Not enough money on oyster card");
-    } else {
-      this.balance -= this.fare;
-    }
+  deduct(amount = this.minBalance) {
+    this.balance -= amount;
   }
 
   touchIn() {
-    this.inJourney = true;
+    if (this.balance < this.minBalance) {
+      throw new Error("Not enough money on oyster card");
+    } else {
+      this.inJourney = true;
+    }
   }
 
   touchOut() {
+    this.deduct();
     this.inJourney = null;
   }
 }
