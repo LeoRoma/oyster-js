@@ -63,13 +63,27 @@ describe("OysterCard", () => {
     oystercard.topUp(10);
     oystercard.touchIn("Oxford Street");
     oystercard.touchOut("Piccadilly");
-    expect(oystercard.entryStation).toBe(undefined);
+    expect(oystercard.entryStation).toBe("Oxford Street");
+  });
+
+  test("has empty journeys list", () => {
+    expect(oystercard.journeys).toEqual([]);
   });
 
   test("remember journey's stations", () => {
     oystercard.topUp(10);
     oystercard.touchIn("Victoria");
     oystercard.touchOut("Piccadilly");
-    expect(oystercard.journeys).toEqual(["Victoria", "Piccadilly"]);
+    // oystercard.addJourney("Victoria", "Piccadilly")
+    expect(oystercard.journeys).toEqual([{entryStation: "Victoria", exitStation: "Piccadilly"}]);
   });
+
+  test("can add multiple journeys", () => {
+    oystercard.topUp(10);
+    oystercard.touchIn("Victoria");
+    oystercard.touchOut("Piccadilly");
+    oystercard.touchIn("Aldgate");
+    oystercard.touchOut("Kilburn");
+    expect(oystercard.journeys).toEqual([{entryStation: "Victoria", exitStation: "Piccadilly"}, {entryStation: "Aldgate", exitStation: "Kilburn"}]);
+  })  
 });

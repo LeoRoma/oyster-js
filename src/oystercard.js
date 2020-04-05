@@ -5,6 +5,7 @@ class OysterCard {
     this.balance = 0;
     this.inJourney = false;
     this.entryStation = undefined;
+    this.exitStation = undefined;
     this.journeys = [];
   }
 
@@ -26,15 +27,18 @@ class OysterCard {
       this.entryStation = entryStation;
       this.inJourney = true;
     }
-    this.journeys.push(entryStation);
   }
 
   touchOut(exitStation) {
     this.deduct();
     this.inJourney = false;
-    this.entryStation = undefined;
-    this.journeys.push(exitStation)
+    this.exitStation = exitStation;
+    this.addJourney(this.entryStation, this.exitStation)
   };
-}
+
+  addJourney(entryStation, exitStation){
+    this.journeys.push({entryStation: entryStation, exitStation: exitStation})
+  };
+};
 
 module.exports = OysterCard;
