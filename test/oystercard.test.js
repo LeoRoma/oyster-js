@@ -62,7 +62,14 @@ describe("OysterCard", () => {
   test("can forget an entry station", () => {
     oystercard.topUp(10);
     oystercard.touchIn("Oxford Street");
-    oystercard.touchOut();
+    oystercard.touchOut("Piccadilly");
     expect(oystercard.entryStation).toBe(undefined);
+  });
+
+  test("remember journey's stations", () => {
+    oystercard.topUp(10);
+    oystercard.touchIn("Victoria");
+    oystercard.touchOut("Piccadilly");
+    expect(oystercard.journeys).toEqual(["Victoria", "Piccadilly"]);
   });
 });
