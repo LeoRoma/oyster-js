@@ -22,16 +22,16 @@ class OysterCard {
 
   touchIn(entryStation) {
     if (!this.inJourney) {
-      this.handlePenaltyFare();
+      this.handlePenaltyFare(entryStation);
     }
     this.handleTouchIn(entryStation);
     this.journey.addCurrentJourney(entryStation);
   }
 
   touchOut(exitStation) {
-    console.log(this.inJourney, "before if");
     if (this.inJourney === false) {
-      console.log(this.inJourney, "after if");
+      this.journey.addCurrentJourney("no station");
+      this.journey.addCurrentJourney(exitStation);
       this.handlePenaltyFare();
     } else {
       this.deduct();
@@ -42,6 +42,8 @@ class OysterCard {
     }
   }
 
+  //private 
+
   handleTouchIn(entryStation) {
     if (this.balance < this.fare) {
       throw new Error("Not enough money on oyster card");
@@ -51,8 +53,10 @@ class OysterCard {
     }
   }
 
-  handlePenaltyFare() {
+  handlePenaltyFare(station) {
     this.balance -= this.penaltyFare;
+    this.journey.addCurrentJourney(station);
+    this.journey.addToLog();
     this.inJourney = false;
   }
 }

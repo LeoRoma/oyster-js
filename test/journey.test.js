@@ -25,6 +25,7 @@ describe("Journey", () => {
     journey.addCurrentJourney(piccadilly);
     expect(journey.currentJourney).toEqual([victoria, piccadilly]);
   });
+
   test("can add few jouernys to the log", () => {
     journey.addCurrentJourney(victoria);
     journey.addCurrentJourney(piccadilly);
@@ -37,4 +38,5 @@ describe("Journey", () => {
       { entryStation: victoria, exitStation: piccadilly }
     ]);
   });
+
 });

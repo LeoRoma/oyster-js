@@ -72,4 +72,13 @@ describe("OysterCard", () => {
     oystercard.touchOut(victoria);
     expect(oystercard.balance).toEqual(4);
   });
+
+
+  test("touch in incomplete journey", () => {
+    oystercard.topUp(10);
+    oystercard.touchIn(victoria);
+    oystercard.touchIn(piccadilly);
+    console.log(journey.log)
+    expect(journey.log).toEqual([{entryStation: victoria, exitStation: undefined}])
+  })
 });
