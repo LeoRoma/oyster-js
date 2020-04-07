@@ -15,17 +15,17 @@ describe("Journey", () => {
     expect(journey.log).toEqual([]);
   });
 
-  test("add entry station to current journey", () => {
+  test(" can add entry station to current journey", () => {
     journey.addCurrentJourney(victoria);
     expect(journey.currentJourney[0]).toEqual(victoria);
   });
 
-  test("add also an exit station to current journey", () => {
+  test("can add also an exit station to current journey", () => {
     journey.addCurrentJourney(victoria);
     journey.addCurrentJourney(piccadilly);
     expect(journey.currentJourney).toEqual([victoria, piccadilly]);
   });
-  test("add also an exit station to current journey", () => {
+  test("can add few jouernys to the log", () => {
     journey.addCurrentJourney(victoria);
     journey.addCurrentJourney(piccadilly);
     journey.addToLog();

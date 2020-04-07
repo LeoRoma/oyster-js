@@ -24,25 +24,36 @@ class OysterCard {
     if (!this.inJourney) {
       this.handlePenaltyFare();
     }
+    this.handleTouchIn(entryStation);
+    this.journey.addCurrentJourney(entryStation);
+  }
+
+  touchOut(exitStation) {
+    console.log(this.inJourney, "before if");
+    if (this.inJourney === false) {
+      console.log(this.inJourney, "after if");
+      this.handlePenaltyFare();
+    } else {
+      this.deduct();
+      this.inJourney = false;
+      this.station = exitStation;
+      this.journey.addCurrentJourney(exitStation);
+      this.journey.addToLog();
+    }
+  }
+
+  handleTouchIn(entryStation) {
     if (this.balance < this.fare) {
       throw new Error("Not enough money on oyster card");
     } else {
       this.station = entryStation;
       this.inJourney = true;
     }
-    this.journey.addCurrentJourney(entryStation);
-  }
-
-  touchOut(exitStation) {
-    this.deduct();
-    this.inJourney = false;
-    this.station = exitStation;
-    this.journey.addCurrentJourney(exitStation);
-    this.journey.addToLog();
   }
 
   handlePenaltyFare() {
     this.balance -= this.penaltyFare;
+    this.inJourney = false;
   }
 }
 

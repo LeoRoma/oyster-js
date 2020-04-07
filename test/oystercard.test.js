@@ -55,28 +55,21 @@ describe("OysterCard", () => {
 
   test("can touch out", () => {
     oystercard.topUp(10);
-    oystercard.touchIn("Oxford Street");
-    oystercard.touchOut();
-    expect(oystercard.inJourney).toBe(false);
-  });
-
-  test("can touch out", () => {
-    oystercard.topUp(10);
     oystercard.touchIn(victoria);
     oystercard.touchOut(piccadilly);
-    expect(oystercard.station).toEqual({ name: "Piccadilly", zone: 1 });
-  });
-
-  test("can log an entry station", () => {
-    oystercard.topUp(10);
-    oystercard.touchIn(victoria);
-    expect(oystercard.station).toEqual({ name: "Victoria", zone: 1 });
+    expect(oystercard.inJourney).toBe(false);
   });
 
   test("charge a penalty fare when touching in twice", () => {
     oystercard.topUp(10);
     oystercard.touchIn(victoria);
     oystercard.touchIn(piccadilly);
+    expect(oystercard.balance).toEqual(4);
+  });
+
+  test("charge a penalty fare when no touching in", () => {
+    oystercard.topUp(10);
+    oystercard.touchOut(victoria);
     expect(oystercard.balance).toEqual(4);
   });
 });
