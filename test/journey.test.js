@@ -1,33 +1,40 @@
-const Journey = require('../src/journey.js');
+const Journey = require("../src/journey.js");
 // const Station = require("../src/station.js");
 
-describe('Journey', () => {
+describe("Journey", () => {
   let journey;
   let victoria;
 
   beforeEach(() => {
-    journey = new Journey;
-    victoria = { name: 'Victoria', zone: 1 };
+    journey = new Journey();
+    victoria = { name: "Victoria", zone: 1 };
+    piccadilly = { name: "Piccadilly", zone: 1 };
   });
 
   test("has empty journey list", () => {
     expect(journey.log).toEqual([]);
   });
 
-  test('add entry station to current journey', () => {
-    journey.addCurrentJourney(victoria)
-    expect(journey.currentJourney[0]).toEqual(victoria)
+  test("add entry station to current journey", () => {
+    journey.addCurrentJourney(victoria);
+    expect(journey.currentJourney[0]).toEqual(victoria);
   });
 
-  xtest('add also an exit station to current journey', () => {
-    expect(oystercard.currentJourney[0]).toEqual({ name: 'Victoria', zone: 1 }, { name: 'Piccadilly', zone: 1 })
+  test("add also an exit station to current journey", () => {
+    journey.addCurrentJourney(victoria);
+    journey.addCurrentJourney(piccadilly);
+    expect(journey.currentJourney).toEqual([victoria, piccadilly]);
   });
-
-  xtest("remember journey's stations", () => {
-    oystercard.topUp(10);
-    oystercard.touchIn(victoria);
-    oystercard.touchOut(piccadilly);
-    // oystercard.addJourney("Victoria", "Piccadilly")
-    expect(oystercard.journey).toEqual([{ entryStation: { name: 'Victoria', zone: 1 }, exitStation: { name: 'Piccadilly', zone: 1 } }]);
+  test("add also an exit station to current journey", () => {
+    journey.addCurrentJourney(victoria);
+    journey.addCurrentJourney(piccadilly);
+    journey.addToLog();
+    journey.addCurrentJourney(victoria);
+    journey.addCurrentJourney(piccadilly);
+    journey.addToLog();
+    expect(journey.log).toEqual([
+      { entryStation: victoria, exitStation: piccadilly },
+      { entryStation: victoria, exitStation: piccadilly }
+    ]);
   });
 });
