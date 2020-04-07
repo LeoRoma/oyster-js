@@ -1,17 +1,14 @@
 class OysterCard {
   constructor(station = new Station(), journey = new Journey()) {
     this.maxBalance = 90;
-    this.minBalance = 1;
+    this.fare = 1;
+    this.penaltyFare = 6;
     this.balance = 0;
     this.inJourney = false;
     this.station = station;
-    // this.station = station;
     this.journey = journey;
   }
 
-  // hello(){
-  //   console.log(this.station, "station", this.journey, 'journey')
-  // }
   topUp(amount) {
     this.balance += amount;
     if (this.balance > this.maxBalance) {
@@ -19,16 +16,18 @@ class OysterCard {
     }
   }
 
-  deduct(amount = this.minBalance) {
+  deduct(amount = this.fare) {
     this.balance -= amount;
   }
 
   touchIn(entryStation) {
-    if (this.balance < this.minBalance) {
+    if (!this.inJourney) {
+      this.handlePenaltyFare();
+    }
+    if (this.balance < this.fare) {
       throw new Error("Not enough money on oyster card");
     } else {
       this.station = entryStation;
-      console.log(this.station.name);
       this.inJourney = true;
     }
     this.journey.addCurrentJourney(entryStation);
@@ -40,6 +39,10 @@ class OysterCard {
     this.station = exitStation;
     this.journey.addCurrentJourney(exitStation);
     this.journey.addToLog();
+  }
+
+  handlePenaltyFare() {
+    this.balance -= this.penaltyFare;
   }
 }
 
